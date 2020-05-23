@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+files=(
+	.*_history
+	.cups
+	.docker
+	.oracle_jre_usage
+	.proxyman
+	.proxyman-data
+	.wget-hsts
+	.config/htop
+)
+
+cd || exit 1
+rm -rf "${files[@]}"
