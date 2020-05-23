@@ -33,9 +33,10 @@ pre_command() {
 		fi
 	done
 	printf '\e]1;%s\a' "$BASH_COMMAND"
+	: "${1:-}"
 }
 
-trap "pre_command" DEBUG
+trap 'pre_command "$_"' DEBUG
 
 post_command() {
 	printf '\e]1;%s\a' "-${SHELL##*/}"
