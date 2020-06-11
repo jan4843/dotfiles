@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 files=(
+	.CFUserTextEncoding
 	.*_history
 	.cups
 	.docker
