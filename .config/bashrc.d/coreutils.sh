@@ -10,3 +10,5 @@ alias ls='ls -1AFh --color=auto'
 if [[ $OSTYPE == darwin* ]]; then
 	alias ls='ls -1AFh -G'
 fi
+
+export LESSHISTFILE=/dev/null
