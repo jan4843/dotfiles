@@ -2,4 +2,4 @@ if ! type tree &>/dev/null; then
 	return
 fi
 
-alias tree='tree -C -I "$(test -e ~/.config/tree/ignore && paste -d \| -s $_)"'
+alias tree='tree -aCF --dirsfirst -I "*.git"'
