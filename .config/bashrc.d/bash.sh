@@ -33,3 +33,21 @@ PS1='\h:\W$(__git_ps1 "(%s)") \$ '
 for prompt in PS{1,2,4}; do
 	declare "$prompt=\[\e[90m\]${!prompt}\[\e[0m\]"
 done
+
+term_launch=1
+ensure_newline() {
+	if [[ -n $term_launch ]]; then
+		unset term_launch
+		return
+	fi
+
+	local cursor
+	printf '\e[6n'
+	IFS=\; read -sdR -a cursor
+
+	if (( cursor[1] != 1 )); then
+		printf '\e[7m%%\e[27m\n'
+	fi
+}
+
+PROMPT_COMMAND="ensure_newline${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
