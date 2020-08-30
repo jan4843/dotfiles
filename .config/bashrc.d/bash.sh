@@ -1,5 +1,5 @@
-shopt -s autocd
-
+alias -- -='cd -'
+alias ..='cd ..; pwd'
 alias \?='echo $?'
 
 if [[ $TERM_PROGRAM == Apple_Terminal ]]; then
