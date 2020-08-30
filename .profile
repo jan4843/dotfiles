@@ -4,14 +4,6 @@ done
 
 [ -z "$PS1" ] && return
 
-case ${SHELL##*/} in
-	bash)
-		for source in \
-			/usr/share/bash-completion/bash_completion \
-			/usr/local/share/bash-completion/bash_completion \
-			~/.config/bashrc.d/*
-		do
-			[ -e "$source" ] && . "$source"
-		done
-		;;
-esac
+for source in ~/.config/"${SHELL##*/}rc.d"/*; do
+	[ -e "$source" ] && . "$source"
+done
