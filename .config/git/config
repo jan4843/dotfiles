@@ -7,3 +7,5 @@
 [log]
 	abbrevCommit = true
 	date = local
+[core]
+	hooksPath = ~/.config/git/hooks

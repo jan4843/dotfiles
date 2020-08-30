@@ -1,0 +1,15 @@
+#!/bin/sh
+
+illegal_regex() {
+	cat ~/.config/git/illegal
+}
+
+illegal_diff() {
+	git diff --cached -G "$(illegal_regex)"
+}
+
+if [ -n "$(illegal_diff)" ]; then
+	printf "Trying to commit illegal strings:\n"
+	illegal_diff
+	exit 1
+fi
