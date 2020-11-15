@@ -5,9 +5,14 @@ _dotfiles_git() {
 }
 
 dotfiles() {
-	while read -r file; do
-		(cd; _dotfiles_git add --intent-to-add "${file%.gitkeep}")
-	done < <(cd; _dotfiles_git ls-files | grep '/\.gitkeep$')
+	(
+		cd || true
+		_dotfiles_git ls-files |
+		grep '/\.gitkeep$' |
+		while read -r file; do
+			_dotfiles_git add --intent-to-add "${file%.gitkeep}"
+		done
+	)
 
 	_dotfiles_git "$@"
 }
