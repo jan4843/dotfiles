@@ -3,4 +3,3 @@ if [[ $OSTYPE != darwin* ]]; then
 fi
 
 alias dnsflush='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
-alias dsstore_rm='find . -name .DS_Store -type f -exec rm {} \;'
