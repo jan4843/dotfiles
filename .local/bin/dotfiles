@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+DOTFILES_GIT_DIR=${DOTFILES_GIT_DIR:-$HOME/.local/src/dotfiles.git}
+
+alias git='git --git-dir="$DOTFILES_GIT_DIR" --work-tree="$HOME"'
+
+cd
+
+git ls-files |
+grep '/\.gitkeep$' |
+while read -r file; do
+	git add --intent-to-add "${file%.gitkeep}"
+done
+
+exec git "$@"
