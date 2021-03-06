@@ -1,6 +1,4 @@
-if [[ $OSTYPE != darwin* ]]; then
-	return
-fi
+[[ $OSTYPE == darwin* ]] || return
 
 while read -r path; do
 	: "${path#/Applications/}"

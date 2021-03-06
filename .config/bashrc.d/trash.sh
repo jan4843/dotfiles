@@ -1,5 +1,3 @@
-if ! type trash &>/dev/null; then
-	return
-fi
+type trash &> /dev/null || return
 
 alias del='trash -v'

@@ -4,8 +4,6 @@ alias pipr='pip install -r requirements.txt'
 alias pyserve='python -m SimpleHTTPServer'
 
 venv() {
-	if [[ ! -f venv/bin/activate ]]; then
-		python3 -m venv venv
-	fi
+	[[ -d venv ]] || python3 -m venv venv
 	source venv/bin/activate
 }
