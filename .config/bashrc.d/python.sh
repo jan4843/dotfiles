@@ -1,5 +1,3 @@
-alias py='python3'
-alias pip='pip3'
 alias pipr='pip install -r requirements.txt'
 alias pyserve='python -m SimpleHTTPServer'
 

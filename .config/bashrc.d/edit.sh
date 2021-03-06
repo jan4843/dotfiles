@@ -1,1 +1,0 @@
-alias edit='${EDITOR/--wait/}'
