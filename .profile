@@ -1,9 +1,11 @@
-for profile in ~/.config/profile.d/*; do
-	[ -e "$profile" ] && . "$profile"
-done
+for f in ~/.config/profile.d/*; do
+	. "$f"
+done; unset f
 
-[ -z "$PS1" ] && return
+test -n "$PS1" || return
 
-for source in ~/.config/"${SHELL##*/}rc.d"/*; do
-	[ -e "$source" ] && . "$source"
-done
+if [ -n "$BASH" ]; then
+	for f in ~/.config/bashrc.d/*; do
+		. "$f"
+	done; unset f
+fi
