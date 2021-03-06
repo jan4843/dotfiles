@@ -1,11 +1,11 @@
-[alias]
-	amend = commit --amend --reset-author
-	graph = log --all --decorate --oneline --graph
-	a = add --all
-	l = !git --no-pager log --oneline --reverse
-	s = status --short
-[log]
-	abbrevCommit = true
-	date = local
 [core]
 	hooksPath = ~/.config/git/hooks
+[alias]
+	a = add --all
+	l = !git --no-pager log --max-count=50 --reverse --oneline
+	s = status --short
+[pull]
+	ff = only
+[user]
+	name = Jan Vitturi
+	email = vitturi.jan@gmail.com
