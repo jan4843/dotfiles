@@ -1,0 +1,11 @@
+#!/bin/sh
+
+alias get='wget -q -O- -T5'
+type curl > /dev/null 2>&1 && alias get='curl -sf -m5'
+
+for w in whatismyip.akamai.com checkip.amazonaws.com; do
+	ip=$(get $w) && break
+done
+
+test -n "$ip" || exit 1
+echo "$ip"
