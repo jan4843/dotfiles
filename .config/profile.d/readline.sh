@@ -1,1 +1,1 @@
-export INPUTRC=~/.config/readline/inputrc
+export INPUTRC=$HOME/.config/readline/inputrc
