@@ -1,3 +1,5 @@
+test -n "$LC_PWD" && cd "$_"
+
 if [[ $TERM_PROGRAM == Apple_Terminal ]]; then
 	export LC_TERM_PROGRAM=$TERM_PROGRAM
 	return
@@ -6,41 +8,23 @@ elif [[ $LC_TERM_PROGRAM != Apple_Terminal ]]; then
 fi
 
 update_terminal_cwd() {
-	local url_path=''
-	local i ch hexch #LC_CTYPE=C LC_ALL=
-	for ((i=0; i < ${#PWD}; ++i)); do
-		ch="${PWD:i:1}"
+	local LC_CTYPE=C LC_COLLATE=C LC_ALL='' LANG=''
+	local url_path i ch hexch
+	for ((i = 0; i < ${#PWD}; ++i)); do
+		ch=${PWD:i:1}
 		if [[ $ch =~ [/._~A-Za-z0-9-] ]]; then
-			url_path+="$ch"
+			url_path+=$ch
 		else
 			printf -v hexch "%02X" "'$ch"
-			url_path+="%${hexch: -2:2}"
+			url_path+=%${hexch: -2:2}
 		fi
 	done
 	printf '\e]7;%s\a' "file://$HOSTNAME$url_path"
 }
 
-PROMPT_COMMAND="update_terminal_cwd${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
-
-pre_command() {
-	[[ -n $pre_command ]] || return
-	IFS=';' read -ra commands <<< "$PROMPT_COMMAND"
-	for command in "${commands[@]}"; do
-		command="${command#"${command%%[![:space:]]*}"}"
-		command="${command%"${command##*[![:space:]]}"}"
-		if [[ $BASH_COMMAND == "$command" ]]; then
-			return 0
-		fi
-	done
-	printf '\e]1;%s\a' "$BASH_COMMAND"
-	: "${1:-}"
+update_terminal_title() {
+	printf '\e]1;%s\a' "${1-$0}"
 }
 
-trap 'pre_command "$_"' DEBUG
-
-post_command() {
-	printf '\e]1;%s\a' "-${SHELL##*/}"
-	pre_command=1
-}
-
-PROMPT_COMMAND="post_command${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+PROMPT_COMMAND="update_terminal_cwd; update_terminal_title"
+trap 'update_terminal_title "$BASH_COMMAND" "$_"' DEBUG
