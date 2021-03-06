@@ -1,5 +1,3 @@
-if [[ $OSTYPE != darwin* ]]; then
-	return
-fi
+[[ $OSTYPE == darwin* ]] || return
 
 alias dnsflush='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
