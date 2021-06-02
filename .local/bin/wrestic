@@ -1,0 +1,24 @@
+#!/bin/bash
+
+case $1 in
+	-*)
+		echo "usage: wrestic <command> [global options] [command options]"
+		exit 64
+		;;
+esac
+
+RESTIC_COMMAND=$1
+shift
+
+set -ae
+# shellcheck disable=SC1090
+. "${RESTIC_CONFIG_FILE:-"${XDG_CONFIG_HOME:-"$HOME/.config"}/restic/config"}"
+
+# shellcheck disable=SC2018,SC2019
+var=$(echo "RESTIC_${RESTIC_COMMAND}_OPTIONS" | tr a-z A-Z)
+RESTIC_COMMAND_OPTIONS=$(eval "printf '%s\n' \$$var")
+
+# shellcheck disable=SC2086,SC2121
+set restic $RESTIC_GLOBAL_OPTIONS $RESTIC_COMMAND $RESTIC_COMMAND_OPTIONS "$@"
+echo "$@"
+exec "$@"
