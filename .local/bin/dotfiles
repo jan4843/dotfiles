@@ -1,10 +1,7 @@
-#!/bin/sh
+#!/bin/sh -e
 
-set -e
-
-DOTFILES_GIT_DIR=${DOTFILES_GIT_DIR:-$HOME/.local/src/dotfiles.git}
-
-alias git='git --git-dir="$DOTFILES_GIT_DIR" --work-tree="$HOME"'
+export GIT_DIR=${DOTFILES_GIT_DIR:-$HOME/.local/src/dotfiles.git}
+export GIT_WORK_TREE=$HOME
 
 cd
 
@@ -14,5 +11,4 @@ while read -r file; do
 	git add --intent-to-add "${file%.gitkeep}"
 done
 
-git "$@"
-exit $?
+exec git "$@"
