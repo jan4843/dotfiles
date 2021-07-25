@@ -15,6 +15,7 @@ else
 fi
 
 PS1='\h:\W$(__git_ps1 "(%s)") \$ '
+PS4='+ ${BASH_SOURCE:-}:${FUNCNAME[0]:-}:L${LINENO:-}: '
 
 for p in PS1 PS2 PS4; do
 	declare "$p=\[\e[90m\]${!p}\[\e[0m\]"
