@@ -1,9 +1,10 @@
 [core]
 	hooksPath = ~/.config/git/hooks
 [alias]
-	a = add --all
 	l = !git --no-pager log --max-count=50 --reverse --oneline
 	s = status --short
+	string = log --source --all --reverse --patch -S
+	regex = log --source --all --reverse --patch -G
 [pull]
 	ff = only
 [user]
