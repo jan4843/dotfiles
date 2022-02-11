@@ -1,6 +1,6 @@
 export EDITOR=vim
 
-if type code > /dev/null 2>&1; then
+if command -v code > /dev/null; then
 	if [ -z "$SSH_CONNECTION" ] || [ "$TERM_PROGRAM" = vscode ]; then
 		export EDITOR="code --wait"	
 	fi

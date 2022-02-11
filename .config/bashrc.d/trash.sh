@@ -1,3 +1,3 @@
-type trash &> /dev/null || return
+command -v trash > /dev/null || return
 
 alias del='trash -v'

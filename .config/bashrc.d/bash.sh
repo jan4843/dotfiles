@@ -6,7 +6,7 @@ alias \?='echo $?'
 
 HISTCONTROL=ignoreboth
 
-if type __git_ps1 &> /dev/null; then
+if command -v __git_ps1 > /dev/null; then
 	GIT_PS1_SHOWDIRTYSTATE=1
 	GIT_PS1_SHOWUNTRACKEDFILES=1
 	GIT_PS1_STATESEPARATOR=
@@ -28,10 +28,9 @@ ensure_newline() {
 		return
 	fi
 
-	local cursor
 	printf '\e[6n'
-	IFS=\; read -sdR -a cursor
-	if (( cursor[1] != 1 )); then
+	IFS=\; read -rsdR
+	if [[ ${REPLY#*;} != 1 ]]; then
 		printf '\e[7m%%\e[27m\n'
 	fi
 }

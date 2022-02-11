@@ -1,3 +1,5 @@
+command -v docker > /dev/null || return
+
 [[ $OSTYPE == darwin* ]] || return
 
 docker() {
