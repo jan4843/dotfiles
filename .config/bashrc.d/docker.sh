@@ -1,5 +1,7 @@
 command -v docker > /dev/null || return
 
+alias @='docker run --rm -it -v "$PWD:/host" -w /host'
+
 [[ $OSTYPE == darwin* ]] || return
 
 docker() {
