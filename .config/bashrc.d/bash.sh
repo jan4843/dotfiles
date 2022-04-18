@@ -1,4 +1,4 @@
-test -e /usr/local/etc/profile.d/bash_completion.sh && source $_
+test -e "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" && source "$_"
 
 alias -- -='cd -'
 alias ..='cd ..; pwd'
