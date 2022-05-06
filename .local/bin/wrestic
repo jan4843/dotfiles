@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ae
 
 case $1 in
 	-*)
@@ -10,9 +10,25 @@ esac
 RESTIC_COMMAND=$1
 shift
 
-set -ae
+if [ -z "$RESTIC_CONFIG_FILE" ]; then
+	for config in \
+		"${XDG_CONFIG_HOME:-"$HOME/.config"}/restic/config" \
+		/etc/restic/config \
+		/etc/default/restic
+	do
+		if [ -e "$config" ]; then
+			RESTIC_CONFIG_FILE=$config
+			break
+		fi
+	done
+fi
+if [ -z "$RESTIC_CONFIG_FILE" ]; then
+	echo "$(basename "$0"): no config file found" >&2
+	exit 78
+fi
+
 # shellcheck disable=SC1090
-. "${RESTIC_CONFIG_FILE:-"${XDG_CONFIG_HOME:-"$HOME/.config"}/restic/config"}"
+. "$RESTIC_CONFIG_FILE"
 
 # shellcheck disable=SC2018,SC2019
 var=$(echo "RESTIC_${RESTIC_COMMAND}_OPTIONS" | tr a-z A-Z)
