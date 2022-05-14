@@ -20,4 +20,5 @@ complete -F _heredocker heredocker
 complete -F _heredocker @
 
 alias compose='docker compose'
+_completion_loader docker-compose
 complete -F _docker_compose compose
