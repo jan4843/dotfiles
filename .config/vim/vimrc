@@ -1,0 +1,19 @@
+syntax enable
+filetype plugin indent on
+
+set mouse=nv
+
+set incsearch
+set ignorecase smartcase
+
+set autoindent smartindent
+set smarttab
+set indentexpr=
+set expandtab shiftwidth=4 tabstop=4
+
+silent !mkdir -p ~/.cache/vim/backup ~/.cache/vim/swap ~/.cache/vim/undo
+silent !find ~/.cache/vim -type f -mtime +30 -delete
+set viminfo+=n~/.cache/vim/info
+set backup backupdir=~/.cache/vim/backup//
+set swapfile directory=~/.cache/vim/swap//
+set undofile undodir=~/.cache/vim/undo//
