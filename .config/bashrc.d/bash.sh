@@ -23,6 +23,8 @@ done; unset p
 
 term_launch=1
 ensure_newline() {
+	[ -n "$TMUX" ] && return
+
 	if [[ -n $term_launch ]]; then
 		unset term_launch
 		return
