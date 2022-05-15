@@ -1,3 +1,5 @@
+[ -d /opt/homebrew ] || return
+
 export HOMEBREW_PREFIX=/opt/homebrew
 export HOMEBREW_CELLAR=$HOMEBREW_PREFIX/Cellar
 export HOMEBREW_REPOSITORY=$HOMEBREW_PREFIX
