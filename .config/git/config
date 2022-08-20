@@ -9,6 +9,8 @@
 	date = iso
 [pull]
 	ff = only
+[push]
+	autoSetupRemote = true
 [user]
 	name = Jan Vitturi
 	email = vitturi.jan@gmail.com
