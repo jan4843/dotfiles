@@ -1,0 +1,10 @@
+#!/bin/sh
+
+exec docker container run \
+	--interactive \
+	--rm \
+	--tty \
+	--volume "$HOME:$HOME" \
+	--volume "$PWD:$PWD" \
+	--workdir "$PWD" \
+	lscr.io/linuxserver/ffmpeg "$@"
