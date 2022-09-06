@@ -1,6 +1,6 @@
 _nav() {
-	"$1" 2> /dev/null || return
 	mapfile -t COMPREPLY < <(
+		"$1" 2> /dev/null || exit 1
 		compgen -S / -d -- "${COMP_WORDS[COMP_CWORD]}"
 	)
 	compopt -o nospace
