@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+yt-dlp --list-formats "$@"
+
+exec yt-dlp \
+	--format bestvideo+bestaudio \
+	--compat-options multistreams \
+	--embed-chapters \
+	--embed-subs \
+	"$@"
