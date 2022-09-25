@@ -1,5 +1,14 @@
 #!/bin/sh -e
 
+expand() {
+	if ! [ -d "$1" ]; then
+		dir=$(cd -- "$(dirname "$1")" && pwd)
+		printf '%s/%s\n' "$dir" "$(basename "$1")"
+	else
+		(cd -- "$1" && pwd)
+	fi
+}
+
 for arg in "$@"; do
 	if [ -z "$reset_args" ]; then
 		set --
@@ -19,12 +28,12 @@ for arg in "$@"; do
 			set -- --publish="$arg:$arg" "$@"
 			;;
 		.:*|..:*|./:*|./*:*|../:*|../*:*|/*:*)
-			src=$(cd "${arg%%:*}" && pwd)
+			src=$(expand "${arg%%:*}")
 			dst=${arg#*:}
 			set -- --volume="$src:$dst" "$@"
 			;;
 		.|..|./*|../*|/*)
-			workdir=$(cd "$arg" && pwd)
+			workdir=$(expand "$arg")
 			set -- --volume="$workdir:/host" --workdir="/host" "$@"
 			;;
 		$)
