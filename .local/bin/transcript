@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+TMP="$(mktemp -d)"
+cd "$TMP"
+
+cleanup() {
+    rm transcript* 2> /dev/null || true
+    rmdir "$TMP"
+}
+
+trap cleanup EXIT
+
+yt-dlp \
+    --convert-subs lrc \
+    --output transcript \
+    --skip-download \
+    --write-auto-sub \
+    --write-sub \
+    "$@" > /dev/null
+
+cat transcript*
