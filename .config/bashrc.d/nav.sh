@@ -1,27 +1,38 @@
+nav() {
+	if [[ $2 == *"://"* ]]; then
+		dir="$1/$(basename "$2" .git)"
+		git clone "$2" "$dir" && cd "$dir"
+		rmdir "$dir" 2> /dev/null
+		unset dir
+	else
+		cd "$1/$2"
+	fi
+}
+
 _nav() {
 	mapfile -t COMPREPLY < <(
-		"$1" 2> /dev/null || exit 1
+		cd "$1" 2> /dev/null || exit 1
 		compgen -S / -d -- "${COMP_WORDS[COMP_CWORD]}"
 	)
 	compopt -o nospace
 }
 
-dev() { cd ~/Developer/"$1"; }
-_dev() { _nav dev; }
+dev() { nav ~/Developer "$1"; }
+_dev() { _nav ~/Developer; }
 complete -F _dev dev
 
-doc() { cd ~/Documents/"$1"; }
-_doc() { _nav doc; }
+doc() { nav ~/Documents "$1"; }
+_doc() { _nav ~/Documents; }
 complete -F _doc doc
 
-dt() { cd ~/Desktop/"$1"; }
-_dt() { _nav dt; }
+dt() { nav ~/Desktop "$1"; }
+_dt() { _nav ~/Desktop; }
 complete -F _dt dt
 
-dl() { cd ~/Downloads/"$1"; }
-_dl() { _nav dl; }
+dl() { nav ~/Downloads "$1"; }
+_dl() { _nav ~/Downloads; }
 complete -F _dl dl
 
-opt() { cd /opt/"$1"; }
-_opt() { _nav opt; }
+opt() { nav /opt "$1"; }
+_opt() { _nav /opt; }
 complete -F _opt opt
