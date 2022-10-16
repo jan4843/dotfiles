@@ -10,12 +10,17 @@ cleanup() {
 
 trap cleanup EXIT
 
-yt-dlp \
-    --convert-subs lrc \
-    --output transcript \
-    --skip-download \
-    --write-auto-sub \
-    --write-sub \
-    "$@" > /dev/null
+error=$(
+    yt-dlp \
+        --convert-subs lrc \
+        --output transcript \
+        --skip-download \
+        --write-auto-sub \
+        --write-sub \
+        "$@" 2>&1
+)
 
-cat transcript*
+if ! cat transcript*; then
+    printf '%s\n' "$error"
+    exit 1
+fi
