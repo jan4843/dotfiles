@@ -1,7 +1,5 @@
 command -v docker > /dev/null || return
 
-export DOCKER_CONFIG=~/.config/docker
-
 _heredocker() {
 	local containers
 	containers=$(
