@@ -5,8 +5,6 @@
 	s = status --short
 	string = log --source --all --reverse --patch -S
 	regex = log --source --all --reverse --patch -G
-[log]
-	date = iso
 [pull]
 	ff = only
 [push]
