@@ -1,4 +1,6 @@
+alias docker=:
 test -e "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" && source "$_"
+unalias docker
 
 alias -- -='cd -'
 alias ..='cd ..; pwd'
