@@ -25,21 +25,3 @@ style_reset=$'\e[0m'
 for p in PS1 PS2 PS4; do
 	declare "$p=\[${style_bold}${style_dim}\]${!p}\[${style_reset}\]"
 done
-
-term_launch=1
-ensure_newline() {
-	[ -n "$TMUX" ] && return
-
-	if [[ -n $term_launch ]]; then
-		unset term_launch
-		return
-	fi
-
-	printf '\e[6n'
-	IFS=\; read -rsdR
-	if [[ ${REPLY#*;} != 1 ]]; then
-		printf '\e[7m%%\e[27m\n'
-	fi
-}
-
-PROMPT_COMMAND="ensure_newline${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
