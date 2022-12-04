@@ -7,7 +7,11 @@ elif [[ $LC_TERM_PROGRAM != Apple_Terminal ]]; then
 	return
 fi
 
+no_update_terminal_title=1
+
 update_terminal_cwd() {
+	unset no_update_terminal_title
+
 	local LC_CTYPE=C LC_COLLATE=C LC_ALL='' LANG=''
 	local url_path i ch hexch
 	for ((i = 0; i < ${#PWD}; ++i)); do
@@ -23,8 +27,16 @@ update_terminal_cwd() {
 }
 
 update_terminal_title() {
-	printf '\e]1;%s\a' "${1-$0}"
+	[[ -n $1 ]] && return
+	[[ $2 = update_terminal ]] && return
+
+	printf '\e]1;%s\a' "${2-$0}"
 }
 
-PROMPT_COMMAND="update_terminal_cwd; update_terminal_title"
-trap 'update_terminal_title "$BASH_COMMAND" "$_"' DEBUG
+update_terminal() {
+	update_terminal_cwd
+	update_terminal_title "$no_update_terminal_title"
+}
+
+PROMPT_COMMAND="update_terminal${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+trap 'update_terminal_title "$no_update_terminal_title" "$BASH_COMMAND" "$_"' DEBUG
