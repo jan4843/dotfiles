@@ -19,9 +19,12 @@ fi
 PS1='\h:\W$(__git_ps1 "(%s)") \$ '
 PS4='+ ${BASH_SOURCE:-}:${FUNCNAME[0]:-}:L${LINENO:-}: '
 
+style_bold=$'\e[1m'
+style_dim=$'\e[90m'
+style_reset=$'\e[0m'
 for p in PS1 PS2 PS4; do
-	declare "$p=\[\e[90m\]${!p}\[\e[0m\]"
-done; unset p
+	declare "$p=\[${style_bold}${style_dim}\]${!p}\[${style_reset}\]"
+done
 
 term_launch=1
 ensure_newline() {
