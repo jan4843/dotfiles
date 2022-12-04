@@ -1,5 +1,8 @@
-syntax enable
+set nocompatible
 filetype plugin indent on
+if has('syntax')
+	syntax enable
+endif
 
 set mouse=nv
 
