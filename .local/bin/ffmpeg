@@ -7,4 +7,6 @@ exec docker container run \
 	--volume "$HOME:$HOME" \
 	--volume "$PWD:$PWD" \
 	--workdir "$PWD" \
-	lscr.io/linuxserver/ffmpeg "$@"
+	--entrypoint "$(basename "$0")" \
+	lscr.io/linuxserver/ffmpeg \
+	"$@"
