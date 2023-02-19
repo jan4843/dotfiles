@@ -50,6 +50,14 @@ if [ -t 0 ]; then
 	set -- --tty "$@"
 fi
 
+if grep -q desktop ~/.docker/config.json 2>/dev/null; then
+	set -- \
+		--volume ~/.ssh:/root/.ssh:ro \
+		--volume "$(realpath ~/.ssh/config)":/root/.ssh/config:ro \
+		--volume /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock:ro \
+		--env SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock \
+		"$@"
+fi
+
 set -- docker container run --rm --init --interactive "$@"
-echo "$@"
 exec "$@"
