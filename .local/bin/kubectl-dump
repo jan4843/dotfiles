@@ -1,0 +1,4 @@
+#!/bin/sh
+
+RESOURCES=$(kubectl api-resources --output=name | tr '\n' ',')pods
+kubectl get "$RESOURCES" --all-namespaces --output=yaml 2>/dev/null
