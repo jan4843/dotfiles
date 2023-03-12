@@ -11,4 +11,5 @@ while read -r file; do
 	git add --intent-to-add "${file%.gitkeep}"
 done
 
-exec git "$@"
+git "$@"
+git submodule update --init --recursive
