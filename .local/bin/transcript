@@ -4,23 +4,17 @@ TMP="$(mktemp -d)"
 cd "$TMP"
 
 cleanup() {
-    rm transcript* 2> /dev/null || true
-    rmdir "$TMP"
+	rm transcript* 2>/dev/null || true
+	rmdir "$TMP"
 }
-
 trap cleanup EXIT
 
-error=$(
-    yt-dlp \
-        --convert-subs lrc \
-        --output transcript \
-        --skip-download \
-        --write-auto-sub \
-        --write-sub \
-        "$@" 2>&1
-)
+yt-dlp \
+	--convert-subs lrc \
+	--output transcript \
+	--skip-download \
+	--write-auto-sub \
+	--write-sub \
+	"$@"
 
-if ! cat transcript*; then
-    printf '%s\n' "$error"
-    exit 1
-fi
+cat transcript* || exit 1
