@@ -1,9 +1,10 @@
 #!/bin/sh
 
+# shellcheck disable=SC2046
 exec docker container run \
-	--interactive \
 	--rm \
-	--tty \
+	--interactive \
+	$(test -t 0 && printf %s --tty) \
 	--volume "$HOME:$HOME" \
 	--volume "$PWD:$PWD" \
 	--workdir "$PWD" \
