@@ -1,6 +1,4 @@
-#!/bin/sh -e
-
-yt-dlp --list-formats "$@"
+#!/bin/sh
 
 exec yt-dlp \
 	--format bestvideo+bestaudio \
