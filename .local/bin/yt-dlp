@@ -2,9 +2,9 @@
 
 IMAGE="yt-dlp:latest"
 
-if ! docker image inspect "$IMAGE" > /dev/null 2>&1; then
+if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
 	docker build --tag "$IMAGE" - <<-EOF
-	FROM alpine
+	FROM alpine:edge
 	RUN apk add --no-cache ffmpeg yt-dlp
 	ENTRYPOINT ["yt-dlp"]
 	EOF
@@ -18,4 +18,5 @@ exec docker container run \
 	--volume "$HOME:$HOME" \
 	--volume "$PWD:$PWD" \
 	--workdir "$PWD" \
-	"$IMAGE" "$@"
+	"$IMAGE" \
+	"$@"
