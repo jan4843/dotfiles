@@ -7,6 +7,7 @@ alias ..='cd ..; pwd'
 alias \?='echo $?'
 
 HISTCONTROL=ignoreboth
+HISTSIZE=100000
 
 if command -v __git_ps1 > /dev/null; then
 	GIT_PS1_SHOWDIRTYSTATE=1
