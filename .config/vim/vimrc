@@ -20,3 +20,4 @@ set viminfo+=n~/.cache/vim/info
 set backup backupdir=~/.cache/vim/backup//
 set swapfile directory=~/.cache/vim/swap//
 set undofile undodir=~/.cache/vim/undo//
+let g:netrw_home='~/.cache/vim'
