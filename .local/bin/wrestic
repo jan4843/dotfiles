@@ -31,7 +31,7 @@ fi
 . "$RESTIC_CONFIG_FILE"
 
 # shellcheck disable=SC2018,SC2019
-var=$(echo "RESTIC_${RESTIC_COMMAND}_OPTIONS" | tr a-z A-Z)
+var=$(echo "RESTIC_${RESTIC_COMMAND}_OPTIONS" | tr a-z A-Z | tr - _)
 RESTIC_COMMAND_OPTIONS=$(eval "printf '%s\n' \$$var")
 
 # shellcheck disable=SC2086,SC2121
