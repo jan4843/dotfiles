@@ -4,6 +4,13 @@ alias compose='docker compose'
 _completion_loader docker-compose
 complete -F _docker_compose compose
 
+upd() {
+	docker compose down
+	start=$(date -Iseconds)
+	docker compose up --detach
+	docker compose logs --follow --since="$start"
+}
+
 _heredocker() {
 	local images
 	images=$(
