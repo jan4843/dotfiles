@@ -5,6 +5,7 @@ _completion_loader docker-compose
 complete -F _docker_compose compose
 
 upd() {
+	docker compose config --quiet || return
 	docker compose down
 	start=$(date -Iseconds)
 	docker compose up --detach
