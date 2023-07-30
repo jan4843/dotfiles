@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+IMAGE="chdman:latest"
+
+if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
+	docker build --tag "$IMAGE" - <<-EOF
+	FROM alpine:edge
+	RUN apk add --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing --no-cache mame-tools
+	ENTRYPOINT ["chdman"]
+	EOF
+fi
+
+# shellcheck disable=SC2046
+exec docker container run \
+	--rm \
+	--interactive \
+	$(test -t 0 && printf %s --tty) \
+	--volume "$HOME:$HOME" \
+	--volume "$PWD:$PWD" \
+	--workdir "$PWD" \
+	"$IMAGE" \
+	"$@"
