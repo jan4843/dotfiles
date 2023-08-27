@@ -6,7 +6,9 @@ complete -F _docker_compose compose
 
 upd() {
 	docker compose config --quiet || return
+	docker compose pull || return
 	docker compose down
+	local start
 	start=$(date -Iseconds)
 	docker compose up --detach
 	docker compose logs --follow --since="$start"
