@@ -1,3 +1,3 @@
-[[ -e /.steamos ]] || return
+[[ -e /home/.steamos ]] || return
 
 __steamos_prompt_command() { :; }
