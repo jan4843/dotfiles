@@ -84,18 +84,18 @@ for arg in "$@"; do
 					"$@"
 				;;
 
+			# LC_ALL=C
+			[A-Z]*=*)
+				set -- \
+					--env="$arg" \
+					"$@"
+				;;
+
 			# TZ
 			[A-Z]*)
 				value=$(eval "printf '%s' \${$arg?}")
 				set -- \
 					--env="$arg=$value" \
-					"$@"
-				;;
-
-			# LC_ALL=C
-			[A-Z]*=*)
-				set -- \
-					--env="$arg" \
 					"$@"
 				;;
 
