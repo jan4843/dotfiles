@@ -6,6 +6,17 @@ alias -- -='cd -'
 alias ..='cd ..; pwd'
 alias \?='echo $?'
 
+.() {
+	if [ $# -eq 0 ]; then
+		local root
+		if root=$(git rev-parse --show-toplevel); then
+			cd "$root" && pwd
+		fi
+	else
+		builtin . "$@"
+	fi
+}
+
 HISTCONTROL=ignoreboth
 HISTSIZE=100000
 
