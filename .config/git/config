@@ -11,6 +11,8 @@
 	rebase = true
 [push]
 	autoSetupRemote = true
+[url "git@github.com:"]
+	pushInsteadOf = "https://github.com"
 [user]
 	name = Jan Vitturi
 	email = vitturi.jan@gmail.com
