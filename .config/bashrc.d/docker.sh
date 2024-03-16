@@ -1,18 +1,18 @@
 command -v docker >/dev/null || return
 
 alias compose='docker compose'
-_completion_loader docker-compose
-complete -F _docker_compose compose
 
-upd() {
-	docker compose config --quiet || return
-	docker compose pull || return
-	docker compose down
+upd() (
+	set -e
+	docker compose config --quiet
+	docker compose pull
+	docker compose build --pull
+	docker compose down --remove-orphans
 	local start
 	start=$(date -Iseconds)
-	docker compose up --detach
+	docker compose up --build --detach
 	docker compose logs --follow --since="$start"
-}
+)
 
 _heredocker() {
 	local images
